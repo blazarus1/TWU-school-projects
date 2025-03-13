@@ -1,0 +1,151 @@
+---
+title: "Titanic: R Project - CSCI 5103.50"
+author: "Bethany Lazarus"
+date: "October 1, 2023"
+output: 
+  html_document: 
+    theme: spacelab
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+### Here is a presentation of the Project R: Titanic assignment for CSCI 5103.50 Fundamentals of Informatics.
+
+### Assignment: 
+Perform at least two different analyses using one variable on the train.csv dataset. 
+
+### Summary: 
+The train.csv dataset holds 891 observations with 12 different variables that explores a sample of passengers that were on the Titanic. I will do an exploratory data analysis on the dataset. The exploratory data analysis will explore one of the twelve variables in the dataset. I will use the "Age" variable. I will perform two analyses on the Age variable with two different plotted visualizations. The purpose of exploratory data analysis is to answer some questions about variables in a dataset before you perform informative analyses, develop predictive models, and present your findings.
+
+### Questions: 
+Could age be a factor in whether it was more likely for a passenger to survive the Titanic catastrophe? What are the descriptive statistics associated with this variable? When grouped by other variables, how does this affect the distribution of the age of passengers?
+
+These questions will begin to be explored through the following analyses, and there will be more questions brought up that will initiate more exploratory analyses and correlative procedures.
+
+
+### Presentation:
+
+First, I will load the ggplot2 library to be able to use our plot visualizations.
+```{r}
+# Loading ggplot2 for data plots
+library(ggplot2)
+```
+
+Next, I will load the train.csv dataset into R.
+```{r}
+# Loading train.csv dataset
+ti <- read.csv('train.csv')
+```
+
+Now, I will provide the names of the variables, the metadata and datatypes behind these variables, and summaries of each variable with descriptive statistics to get a picture of what each look like.
+```{r}
+# Starting EDA with getting familiar with the dataset with summary
+names(ti)
+str(ti)
+summary(ti)
+```
+
+Here is a summary of just the Age variable, or the one variable we will be exploring.
+```{r}
+# Summary of the numerical Variable 'Age'
+summary(ti$Age)
+```
+
+Here is a summary of just the "Survived" and "Pclass" variables.
+```{r}
+summary(ti$Survived)
+summary(ti$Pclass)
+```
+Notice they are both numerical variables with numerical values, however they are acting as categorical variables and I want to change them to have labels. Next, I will do that.
+
+Changing the Survived variable to have "Yes" and "No" labels.
+```{r}
+# Converting Survived values into a Factor Variable
+ti$Survived <- cut(ti$Survived, 2, labels=c('No', 'Yes'))
+str(ti)
+summary(ti$Survived)
+```
+
+Now changing the Pclass variable to have "Upper", "Middle", and "Lower" labels to represent Socio-economic class.
+```{r}
+# Converting Pclass values into a Factor Variable
+ti$Pclass <- cut(ti$Pclass, 3, labels=c('Upper', 'Middle', 'Lower'))
+str(ti)
+summary(ti$Pclass)
+```
+
+### Analysis 1: Histogram 
+
+For the first analysis, I will be creating a histogram to visualize the distribution of the numerical variable Age. This is to explore the question: What age group has the most passengers that are present in the data sample? The histogram will be adjusted to explore the Age variable further using a grouping variable - Survival. I am using the Survival variable to explore this question: What age group of passengers had the lowest number of passengers survive and not survive? What age group had the highest number of passengers survive and not survive?
+
+I will start with a histogram to represent the distribution of the Age variable.
+```{r}
+qplot(x=Age, data=ti)
+```
+
+Here it is adjusted for bin width to represent the buckets of ages in groupings of five at a time.
+```{r}
+qplot(x=Age, data=ti, binwidth = 5)
+```
+
+Now, I will add color to get a better look at each bin add continuous scale limits so the x axis will start at 0.
+```{r}
+qplot(x=Age, data=ti, binwidth = 5,
+      color = I('black'), fill = I('#0000EE')) +
+      scale_x_continuous(limits = c(0, 90))
+```
+
+The age group of passengers that had the most present in the data sample is the 15-20 age range, as shown by the histogram above.
+
+
+
+
+Next, I will add x and y axis labels and a facet wrap to get a better look at the histograms categorized by survival.
+```{r}
+qplot(x=Age, data=ti, binwidth = 5,
+      xlab = 'Age of Passenger',
+      ylab = 'Frequency',
+      color = I('black'), fill = I('#0000EE')) +
+      scale_x_continuous(limits = c(0, 90)) +
+      facet_wrap(~Survived)
+```
+
+Here we can see both histograms are approximately normally distributed, with fluctuations at certain age groups. Comparing from survival to non-survival, the age groups that were significantly different were ages 15-20, 25-30, and 45-50. These age groups took a significant jump up in frequency when in comparison to the frequency of non-survival. The total age distribution across survival groups were approximately the same, with a hump in the distributions being close to the mean age of all passengers at 29 years old.
+
+
+### Analysis 2: Boxplot
+
+Question: What is the mean age at which passengers survived or didn't survive? What is the range of these ages? How does this change based on grouping by socio-economic class? These questions will be explored through a summary statistics and boxplot visualizations.
+
+Now, we will focus more on the descriptive statistics of the Age variable, using terms such as Mean, Median, Range, and Quartiles. Here is a table to represent these terms as grouped by the Survived variable.
+```{r}
+by(ti$Age, ti$Survived, summary)
+```
+
+Here is descriptive statistics as shown through the Age variable and grouped by socio-economic class, just for more angles of the data.
+```{r}
+by(ti$Age, ti$Pclass, summary)
+```
+
+
+Here is a boxplot using the Age and Survived variables.
+```{r}
+qplot(x=Survived, y=Age, data=ti, geom = 'boxplot')
+```
+
+Here is the updated boxplot, using axis labels, color, and a facet wrap by Pclass, so I can compare across Survival when grouped by socio-economic class.
+```{r}
+qplot(x=Survived, y=Age, data=ti, geom = 'boxplot',
+      xlab = 'Socio-economic Class',
+      ylab = 'Age of Passenger',
+      color = Survived) +
+      facet_wrap(~Pclass)
+```
+
+In conclusion, the trends between Survival and non-survival across all socio-economic classes were similar, with a downwards trend in average age of survival. This meaning that for each class, the higher mean age meant no survival, and the lower mean age meant survival. This was true for the grouping of ALL passengers when grouped by Survival, the average age for non-survival being 30.63 and for survival is 28.34. For the Upper class, there were higher mean ages in comparison to the other classes, for both survival and non-survival. The mean age of non-survival in the Upper, Middle, and Lower classes were approximately 45, 30, and 25. The mean age of survival for the Upper, Middle, and Lower classes were approximately 35, 28, and 21. The Upper class had a larger quartile range of the 25th-75th percentile of survival being between the ages of 24-45, with a difference of about 21 years of age. The other two classes had a smaller difference of quartile ranges being 17 years and 15 years, approximately. It is interesting to look at these ranges and averages across classes, because from here we can understand more about who was on board in what class, how age affects your chance of survival, and how these two factors together can help develop a predictive model.
+
+
+### Conclusion
+In conclusion, we have answered some of our questions which have prompted more questions. These additional questions will prompt more exploration into other variables in the dataset, and could reveal correlations between multiple variables to make a predictive model. The exploratory data analysis of one variable is only the beginning of building predictive grouping. And, as always, correlation does not mean causation.
