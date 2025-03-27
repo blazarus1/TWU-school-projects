@@ -1,2 +1,10 @@
-# TWU-school-projects
-Projects completed from my Master of Science in Data Science &amp; Informatics degree from 2023-2025.
+# Data Science
+
+### Education
+M.S Data Science & Informatics at Texas Woman's University
+B.S. Informatics with Minors in Data Science and Financa at Texas Woman's University
+
+### Work Experience
+Business & Data Analyst Intern at Black Box Networking Services
+Graduate Teaching Assistant at Texas Woman's University
+
