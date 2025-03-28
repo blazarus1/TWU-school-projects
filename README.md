@@ -1,12 +1,12 @@
-# Data Science
+## Data Science/Data Analytics
 
 ### Education
-* M.S Data Science & Informatics | Texas Woman's University
-* B.S. Informatics (Minors in Data Science and Finance) | Texas Woman's University
+* M.S Data Science & Informatics | Texas Woman's University (May 2025)
+* B.S. Informatics (Minors in Data Science and Finance) | Texas Woman's University (May 2023)
 
 ### Work Experience
-* Business & Data Analyst Intern at Black Box Networking Services
-* Graduate Teaching Assistant at Texas Woman's University
+* Business & Data Analyst Intern at Black Box Networking Services (May 2023-Aug 2023)
+* Graduate Teaching Assistant at Texas Woman's University (Aug 2021-present)
 
 ## Projects
 **Exercise and Health Data Project in Data Mining:** <br>
