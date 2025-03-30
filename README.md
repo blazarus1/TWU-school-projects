@@ -1,8 +1,8 @@
 ## Data Science/Data Analytics
 
 ### Education
-* M.S. Data Science & Informatics | Texas Woman's University | May 2025
-* B.S. Informatics (Minors in Data Science and Finance) | Texas Woman's University | May 2023
+* Master of Science in Data Science & Informatics | Texas Woman's University | May 2025
+* Bachelor of Science in Informatics (Minors in Data Science and Finance) | Texas Woman's University | May 2023
 
 ### Work Experience
 * Business & Data Analyst Intern at Black Box Networking Services | May 2023-Aug 2023
